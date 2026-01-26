@@ -1,0 +1,151 @@
+{
+  "tasks": [
+    {
+      "id": "task-chromium-1",
+      "title": "DevOps Project 2 chromium",
+      "description": "DevOps Project 2",
+      "priority": "high",
+      "dueDate": "2025-11-28",
+      "tags": [
+        "chromium",
+        "devops"
+      ],
+      "status": "pending",
+      "createdAt": "2026-01-26T13:09:59.415Z"
+    },
+    {
+      "id": "task-chromium-2",
+      "title": "Innova Project chromium",
+      "description": "Work on the Innova project tasks",
+      "priority": "high",
+      "dueDate": "2026-01-21",
+      "tags": [
+        "chromium",
+        "innova"
+      ],
+      "status": "in-progress",
+      "createdAt": "2026-01-26T13:09:59.415Z"
+    },
+    {
+      "id": "task-chromium-3",
+      "title": "Minimal Task chromium",
+      "description": null,
+      "priority": null,
+      "dueDate": null,
+      "tags": null,
+      "status": null,
+      "createdAt": "2026-01-26T13:09:59.415Z"
+    },
+    {
+      "id": "task-chromium-4",
+      "title": "Focus Test Task chromium",
+      "description": "Task for tag container focus test",
+      "priority": "low",
+      "dueDate": "2026-06-15",
+      "tags": [
+        "chromium",
+        "focus-test"
+      ],
+      "status": "pending",
+      "createdAt": "2026-01-26T13:09:59.415Z"
+    },
+    {
+      "id": "task-firefox-1",
+      "title": "DevOps Project 2 firefox",
+      "description": "DevOps Project 2",
+      "priority": "high",
+      "dueDate": "2025-11-28",
+      "tags": [
+        "firefox",
+        "devops"
+      ],
+      "status": "pending",
+      "createdAt": "2026-01-26T13:09:59.415Z"
+    },
+    {
+      "id": "task-firefox-2",
+      "title": "Innova Project firefox",
+      "description": "Work on the Innova project tasks",
+      "priority": "high",
+      "dueDate": "2026-01-21",
+      "tags": [
+        "firefox",
+        "innova"
+      ],
+      "status": "in-progress",
+      "createdAt": "2026-01-26T13:09:59.415Z"
+    },
+    {
+      "id": "task-firefox-3",
+      "title": "Minimal Task firefox",
+      "description": null,
+      "priority": null,
+      "dueDate": null,
+      "tags": null,
+      "status": null,
+      "createdAt": "2026-01-26T13:09:59.415Z"
+    },
+    {
+      "id": "task-firefox-4",
+      "title": "Focus Test Task firefox",
+      "description": "Task for tag container focus test",
+      "priority": "low",
+      "dueDate": "2026-06-15",
+      "tags": [
+        "firefox",
+        "focus-test"
+      ],
+      "status": "pending",
+      "createdAt": "2026-01-26T13:09:59.415Z"
+    },
+    {
+      "id": "task-webkit-1",
+      "title": "DevOps Project 2 webkit",
+      "description": "DevOps Project 2",
+      "priority": "high",
+      "dueDate": "2025-11-28",
+      "tags": [
+        "webkit",
+        "devops"
+      ],
+      "status": "pending",
+      "createdAt": "2026-01-26T13:09:59.415Z"
+    },
+    {
+      "id": "task-webkit-2",
+      "title": "Innova Project webkit",
+      "description": "Work on the Innova project tasks",
+      "priority": "high",
+      "dueDate": "2026-01-21",
+      "tags": [
+        "webkit",
+        "innova"
+      ],
+      "status": "in-progress",
+      "createdAt": "2026-01-26T13:09:59.415Z"
+    },
+    {
+      "id": "task-webkit-3",
+      "title": "Minimal Task webkit",
+      "description": null,
+      "priority": null,
+      "dueDate": null,
+      "tags": null,
+      "status": null,
+      "createdAt": "2026-01-26T13:09:59.415Z"
+    },
+    {
+      "id": "task-webkit-4",
+      "title": "Focus Test Task webkit",
+      "description": "Task for tag container focus test",
+      "priority": "low",
+      "dueDate": "2026-06-15",
+      "tags": [
+        "webkit",
+        "focus-test"
+      ],
+      "status": "pending",
+      "createdAt": "2026-01-26T13:09:59.415Z"
+    }
+  ]
+}
