@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: task-manager-service  # Name of the service
+spec:
+  type: NodePort  # Exposes the service on a port on each node, making it accessible externally
+  selector:
+    app: task-manager  # Selects the pods with this label to route traffic to
+  ports:
+    - protocol: TCP        # Protocol used by the service
+      port: 3000           # External port for the service; use 5050 for Minikube, 80 can be used in production for standard HTTP
+      targetPort: 3000     # Port on the container to forward traffic to
+      nodePort: 30080      # Fixed external port on the node (range: 30000–32767) 
