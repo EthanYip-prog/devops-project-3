@@ -10,7 +10,7 @@ const { getAllTasks, getTaskById } = require("./utils/getTasksUtil");
 const { deletedTask } = require("./utils/syakirahUtil");
 
 const app = express();
-const PORT = process.env.PORT || 5050;
+const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
