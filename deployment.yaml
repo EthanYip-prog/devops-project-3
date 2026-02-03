@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: task-manager  # Name of the container
-          image: task-manager  # Docker image to use for the container
+          image: task-manager:{{BUILD_NUMBER}}  # Docker image to use for the container
           imagePullPolicy: IfNotPresent   # Do not pull from Docker Hub
           ports:
             - containerPort: 3000  # Port that the container exposes
