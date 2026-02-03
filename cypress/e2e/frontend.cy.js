@@ -1,7 +1,7 @@
 /**
  * Cypress E2E Tests for Task Manager
- * Alternative testing framework alongside Playwright and Selenium
- * 
+ * Alternative testing framework alongside Playwright coverage
+ *
  * These tests cover the same functionality as the Playwright tests in e2e/frontend.spec.ts
  * to ensure completeness across all supported testing frameworks.
  */
