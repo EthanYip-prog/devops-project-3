@@ -1,4 +1,4 @@
-name: Security & Quality Gate
+name: security and quality
 
 # so that it triggers on pull requests only
 on: [pull_request]
