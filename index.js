@@ -1,6 +1,5 @@
 const express = require("express");
 const path = require("path");
-const logger = require('./logger');
 
 const { editTask } = require("./utils/ethanUtils");
 
@@ -23,14 +22,9 @@ app.delete("/tasks/:id", deletedTask);
 
 app.use(express.static(path.join(__dirname, "public")));
 
-const statusMonitor = require('express-status-monitor');
-app.use(statusMonitor()); 
-
 console.log("Attempting to listen on port " + PORT);
 const server = app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
-  logger.info(`Demo project at http://localhost:${PORT}!`);
-  logger.error()
 });
 
 module.exports = { app, server };
