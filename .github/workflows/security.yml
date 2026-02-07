@@ -1,0 +1,35 @@
+name: Security & Quality Gate
+
+# so that it triggers on pull requests only
+on: [pull_request]
+
+jobs:
+  # job 1: scanning secrets
+  security-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # required so that gitleaks can read the commit history
+
+      - name: Run Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # fails the job if it finds a password/key
+
+  # job 2: code linting
+  lint-code:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Run Super-Linter # works with almost every language
+        uses: github/super-linter@v5
+        env:
+          VALIDATE_ALL_CODEBASE: false # only checks new code in the PR
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
