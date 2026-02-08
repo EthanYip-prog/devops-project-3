@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devops-project-3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: devops-project-3
+  template:
+    metadata:
+      labels:
+        app: devops-project-3
+    spec:
+      containers:
+      - name: devops-project-3
+        image: ethandevopsregistry2026.azurecr.io/my-app:${{ github.sha }} 
+        ports:
+        - containerPort: 3000
