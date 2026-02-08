@@ -1,21 +1,63 @@
-name: security and quality
+name: security, build, deploy
 
-# so that it triggers on pull requests only
-on: [pull_request]
+on:
+  pull_request:        # runs tests when you open a PR
+  push:
+    branches: ["main"] # runs tests AND deploy when you merge to main
 
 jobs:
- #job: making use of superlinter to scan secrets & bad syntax
+  # job 1: security check (your existing job)
   lint-code:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Run Super-Linter # works with almost every language
+      - name: Run Super-Linter
         uses: github/super-linter@v5
         env:
-          VALIDATE_ALL_CODEBASE: false # only checks new code in the PR
+          VALIDATE_ALL_CODEBASE: false
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # job 2: deploy to azure (new job)
+  build-and-deploy:
+    needs: lint-code  # ensuring we only deploy if the linter passes!
+    if: github.ref == 'refs/heads/main' # only deploy on the main branch (not PRs)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Build and Push Docker Image
+        uses: azure/docker-login@v1
+        with:
+          login-server: ${{ secrets.ACR_NAME }}.azurecr.io
+          username: ${{ secrets.ACR_NAME }}
+          password: ${{ secrets.AZURE_CREDENTIALS }} 
+      
+      - name: Build and Push to ACR
+        run: |
+          docker build . -t ${{ secrets.ACR_NAME }}.azurecr.io/my-app:${{ github.sha }}
+          docker push ${{ secrets.ACR_NAME }}.azurecr.io/my-app:${{ github.sha }}
+
+      - name: Set AKS Context
+        uses: azure/aks-set-context@v3
+        with:
+          resource-group: ${{ secrets.RESOURCE_GROUP }}
+          cluster-name: ${{ secrets.CLUSTER_NAME }}
+
+      - name: Deploy to Kubernetes
+        uses: Azure/k8s-deploy@v4
+        with:
+          action: deploy
+          manifests: |
+            deployment.yaml
+          images: |
+            ${{ secrets.ACR_NAME }}.azurecr.io/my-app:${{ github.sha }}
