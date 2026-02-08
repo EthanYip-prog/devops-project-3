@@ -1,12 +1,12 @@
-name: security, build, deploy
+name: Security, Build, and Deploy
 
 on:
-  pull_request:        # runs tests when you open a PR
+  pull_request:
   push:
-    branches: ["main"] # runs tests AND deploy when you merge to main
+    branches: ["main"]
 
 jobs:
-  # job 1: security check (your existing job)
+  # job 1: security check
   lint-code:
     runs-on: ubuntu-latest
     steps:
@@ -22,10 +22,10 @@ jobs:
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  # job 2: deploy to azure (new job)
+  # job 2: deploying to azure
   build-and-deploy:
-    needs: lint-code  # ensuring we only deploy if the linter passes!
-    if: github.ref == 'refs/heads/main' # only deploy on the main branch (not PRs)
+    needs: lint-code
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -35,14 +35,10 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Build and Push Docker Image
-        uses: azure/docker-login@v1
-        with:
-          login-server: ${{ secrets.ACR_NAME }}.azurecr.io
-          username: ${{ secrets.ACR_NAME }}
-          password: ${{ secrets.AZURE_CREDENTIALS }} 
+      - name: Log in to Azure Container Registry
+        run: az acr login --name ${{ secrets.ACR_NAME }}
       
-      - name: Build and Push to ACR
+      - name: Build and Push Docker Image
         run: |
           docker build . -t ${{ secrets.ACR_NAME }}.azurecr.io/my-app:${{ github.sha }}
           docker push ${{ secrets.ACR_NAME }}.azurecr.io/my-app:${{ github.sha }}
@@ -58,6 +54,7 @@ jobs:
         with:
           action: deploy
           manifests: |
-            deployment.yaml
+            k8s/deployment.yaml
+            k8s/service.yaml
           images: |
             ${{ secrets.ACR_NAME }}.azurecr.io/my-app:${{ github.sha }}
